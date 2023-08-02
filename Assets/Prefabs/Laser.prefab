@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2292744744390625880}
   - component: {fileID: 2993614919149094610}
   - component: {fileID: 7948156533741788954}
+  - component: {fileID: -5309816813520517486}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -98,3 +99,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5309816813520517486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355576528730705454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf8380939772464d8b9f8fc87c18925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 14

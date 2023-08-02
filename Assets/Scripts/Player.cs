@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 250.0f;
     private float yBarrier = 6.55f;
     private float xBarrier = 11.28f;
+    public GameObject laser;
+    [SerializeField] private float _cooldown = 0.05f;
+    private float _canFire = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,8 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
         //AlternateMovement();
+        if(Input.GetKeyDown(KeyCode.Mouse0) && Time.time > _canFire)
+            FireLaser();
     }
 
     void CalculateMovement()
@@ -36,13 +41,9 @@ public class Player : MonoBehaviour
 
         //If the current transform meets or exceeds the barrier, spawn them on the opposite side
         if (transform.position.y >= yBarrier || transform.position.y <= (yBarrier * -1.0f))
-        {
             transform.position = new Vector3(transform.position.x, transform.position.y * -1.0f, transform.position.z);
-        }
         if (transform.position.x >= xBarrier || transform.position.x <= (xBarrier * -1.0f))
-        {
             transform.position = new Vector3(transform.position.x * -1.0f, transform.position.y, transform.position.z);
-        }
 
         //Boost Button?
     }
@@ -55,4 +56,11 @@ public class Player : MonoBehaviour
     //     var angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg * -1.0f;
     //     transform.rotation = Quaternion.AngleAxis(angle, new Vector3(0,0,1));
     // }
+
+    void FireLaser()
+    {
+        //If you press a button, spawn laser
+        _canFire = Time.time + _cooldown;
+        Instantiate(laser, transform.position, transform.rotation);
+    }
 }
