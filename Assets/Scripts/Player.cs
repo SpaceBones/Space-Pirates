@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private float xBarrier = 11.28f;
     public GameObject laser;
     [SerializeField] private float _cooldown = 0.05f;
-    private float _canFire = 0.05f;
+    private float _canFire = 0.1f;
 
     // Start is called before the first frame update
     void Start()
