@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public GameObject laser;
     [SerializeField] private float _cooldown = 0.05f;
     private float _canFire = 0.1f;
+    [SerializeField] private int _lives = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -65,5 +66,14 @@ public class Player : MonoBehaviour
         //If you press a button, spawn laser
         _canFire = Time.time + _cooldown;
         Instantiate(laser, transform.position, transform.rotation);
+    }
+
+    public void Damage()
+    {
+        _lives--;
+        if (_lives < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }

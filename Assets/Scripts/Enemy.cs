@@ -42,16 +42,18 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        Debug.Log("Hit: : " + other.transform.name);
         if(other.tag == "Player")
         {
             // damage player
-            Destroy(this);
+            Player player = other.transform.GetComponent<Player>();
+            if (player != null)
+                player.Damage();
+            Destroy(gameObject);
         }
         else if (other.tag == "Laser")
         {
-            Destroy(other);
-            Destroy(this);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
         }
     }
 }
