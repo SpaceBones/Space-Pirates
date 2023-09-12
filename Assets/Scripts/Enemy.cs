@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            // damage player
             Player player = other.transform.GetComponent<Player>();
             if (player != null)
                 player.Damage();
