@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
+    [SerializeField] private GameObject _container;
+    private bool _stopSpawning = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +21,18 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnCoroutine(float wait)
     {
-        while (true)
+        while (_stopSpawning == false)
         {
             yield return new WaitForSeconds(wait);
             Vector3 spawnPos = new Vector3(Random.Range(-11.0f, 11.0f), 6.55f, 0);
-            Instantiate(_enemy, spawnPos, Quaternion.identity);
+            GameObject newEnemy = Instantiate(_enemy, spawnPos, Quaternion.identity);
+            newEnemy.transform.parent = _container.transform;
         }
 
+    }
+
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 }

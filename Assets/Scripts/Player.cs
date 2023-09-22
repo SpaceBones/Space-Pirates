@@ -14,12 +14,19 @@ public class Player : MonoBehaviour
     [SerializeField] private float _cooldown = 0.05f;
     private float _canFire = 0.1f;
     [SerializeField] private int _lives = 3;
+    [SerializeField] private SpawnManager _spawnManager;
 
     // Start is called before the first frame update
     void Start()
     {
         //take the current position = new position (x,y,z)
         transform.position = new Vector3 (0,0,0);
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if (_spawnManager == null)
+        {
+            Debug.LogError("The Spawn Manager is Null!");
+        }
+        
     }
 
     // Update is called once per frame
@@ -38,7 +45,7 @@ public class Player : MonoBehaviour
         float vInput = Input.GetAxis("Vertical");
         
         //The Top is forward and backward movement in addition to boost, while the Bottom is left and right rotation
-        if (Input.GetKey(KeyCode.LeftShift) == true)
+        if (Input.GetKey(KeyCode.Mouse1) == true)
             transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _boost);
         else
             transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed);
@@ -74,6 +81,8 @@ public class Player : MonoBehaviour
         if (_lives < 1)
         {
             Destroy(gameObject);
+            //tell Spawn Manager to stop spawning
+            _spawnManager.OnPlayerDeath();
         }
     }
 }
