@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         float vInput = Input.GetAxis("Vertical");
         
         //The Top is forward and backward movement in addition to boost, while the Bottom is left and right rotation
-        if (Input.GetKey(KeyCode.Mouse1) == true)
+        if (Input.GetKey(KeyCode.Mouse1) == true || Input.GetKey(KeyCode.LeftShift) == true)
             transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _boost);
         else
             transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed);
