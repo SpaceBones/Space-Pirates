@@ -335,10 +335,12 @@ MonoBehaviour:
   _speed: 8
   _boost: 12
   _rotationSpeed: 250
-  laser: {fileID: 6218329367411510275, guid: 4075cb2dd847e69469d0fef2d77c5cd0, type: 3}
+  _laser: {fileID: 6218329367411510275, guid: 4075cb2dd847e69469d0fef2d77c5cd0, type: 3}
   _cooldown: 0.1
   _lives: 3
-  _spawnManager: {fileID: 0}
+  _spawnManager: {fileID: 1155775144}
+  _activeTriple: 0
+  _laserTriple: {fileID: 7160807728174314579, guid: 2378dd5182311cf4e9efe60c1dd72adf, type: 3}
 --- !u!212 &817587620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -573,7 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 4722394102240783498, guid: 86730f8c92fc2324cb15cbbfc7d62479, type: 3}
-  newEnemy: {fileID: 0}
+  _newEnemy: {fileID: 0}
   _container: {fileID: 1321573781}
 --- !u!4 &1155775145
 Transform:

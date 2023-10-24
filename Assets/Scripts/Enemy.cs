@@ -5,35 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 3.0f;
-    private float yBarrier = 6.55f;
-    private float xBarrier = 11.28f;
-    //private float x_move = 0.0f;
-    //private float y_move = 0.0f;
-    // private float[] _angles = {0.0f, 45.0f, 90.0f, 135.0f, 180.0f, -225.0f, 270.0f, 315.0f};
-    // private int _angleCount = 8;
-    // private int _tmpIndex = 0;
-    // private float _tmpAngle = 0.0f;
+    private float _yBarrier = 6.55f;
+    private float _xBarrier = 11.28f;
+    
     // Start is called before the first frame update
     void Start()
     {
-        //if you are on the positive end of the x axis AND your y value
-        // if(transform.position.x == 11.20f)
-        //     {
-        //         x_move = -1.0f;
-        //     }
-        // else if(transform.position.x == -11.20f)
-        //     {
-        //         x_move = 1.0f;
-        //     }
-        // else if(transform.position.y == 6.50f)
-        //     {
-        //         y_move = -1.0f;
-        //     }
-        // else if(transform.position.y == -6.50f)
-        //     {
-        //         y_move = 1.0f;
-        //     }
-        // Debug.Log("I have spawned at " + transform.position + " and have x_move value of " + x_move + " and a y_move value of " + y_move);
+
     }
 
     // Update is called once per frame
@@ -58,10 +36,10 @@ public class Enemy : MonoBehaviour
     private void Movement()
     {
         transform.Translate(Vector3.down * Time.deltaTime * _speed);
-        if (transform.position.y >= yBarrier || transform.position.y <= (yBarrier * -1.0f))
-            transform.position = new Vector3(Random.Range(xBarrier * -1.0f, xBarrier), transform.position.y * -1.0f, transform.position.z);
-        if (transform.position.x >= xBarrier || transform.position.x <= (xBarrier * -1.0f))
-            transform.position = new Vector3(transform.position.x * -1.0f, Random.Range(yBarrier * -1.0f, yBarrier), transform.position.z);
+        if (transform.position.y >= _yBarrier || transform.position.y <= (_yBarrier * -1.0f))
+            transform.position = new Vector3(Random.Range(_xBarrier * -1.0f, _xBarrier), transform.position.y * -1.0f, transform.position.z);
+        if (transform.position.x >= _xBarrier || transform.position.x <= (_xBarrier * -1.0f))
+            transform.position = new Vector3(transform.position.x * -1.0f, Random.Range(_yBarrier * -1.0f, _yBarrier), transform.position.z);
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
