@@ -95,4 +95,19 @@ public class Player : MonoBehaviour
 			_spawnManager.OnPlayerDeath();
 		}
 	}
+
+	public void Powerup(int power)
+	{
+		if (power == 3)
+		{
+			_activeTriple = true;
+			StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
+		}
+	}
+
+	IEnumerator TripleshotPowerdownCoroutine(float wait)
+	{
+		yield return new WaitForSeconds(wait);
+		_activeTriple = false;
+	}
 }
