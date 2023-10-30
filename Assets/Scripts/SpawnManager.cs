@@ -5,15 +5,20 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 	[SerializeField] private GameObject _enemy;
-	[SerializeField] private GameObject _newEnemy; //fix Underscores
-	[SerializeField] private GameObject _container;
+	[SerializeField] private GameObject _tripleshot;
+	[SerializeField] private GameObject _newEnemy;
+	[SerializeField] private GameObject _newPower;
+	[SerializeField] private GameObject _containerEnemy;
+	[SerializeField] private GameObject _containerPower;
 	private bool _stopSpawning = false;
-	private string[] _directions = { "north", "south", "east", "west" }; //fix Underscores
-	private Vector3 _spawnPos = new Vector3(0.0f, 0.0f, 0.0f); //fix Underscores
-															  // Start is called before the first frame update
+	private string[] _directions = { "north", "south", "east", "west" };
+	private Vector3 _spawnPos = new Vector3(0.0f, 0.0f, 0.0f);
+	
+	// Start is called before the first frame update
 	void Start()
 	{
-		StartCoroutine(SpawnCoroutine(Random.Range(1.0f, 6.0f)));
+		StartCoroutine(SpawnEnemyCoroutine(Random.Range(1.0f, 6.0f)));
+		StartCoroutine(SpawnPowerupCoroutine(Random.Range(10.0f, 15.0f)));
 	}
 
 	// Update is called once per frame
@@ -22,7 +27,7 @@ public class SpawnManager : MonoBehaviour
 
 	}
 
-	IEnumerator SpawnCoroutine(float wait)
+	IEnumerator SpawnEnemyCoroutine(float wait)
 	{
 		while (_stopSpawning == false)
 		{
@@ -48,9 +53,20 @@ public class SpawnManager : MonoBehaviour
 						_newEnemy = Instantiate(_enemy, _spawnPos, Quaternion.Euler(new Vector3(0.0f, 0.0f, -90.0f)));
 					break;
 				}
-			_newEnemy.transform.parent = _container.transform;
+			_newEnemy.transform.parent = _containerEnemy.transform;
 		}
 
+	}
+
+	IEnumerator SpawnPowerupCoroutine(float wait)
+	{
+		while (_stopSpawning == false)
+		{
+			yield return new WaitForSeconds(wait);
+			_spawnPos = new Vector3(Random.Range(-11.0f, 11.0f), 6.5f, 0.0f);
+			_newPower = Instantiate(_tripleshot, _spawnPos, Quaternion.identity);
+			_newPower.transform.parent = _containerPower.transform;
+		}
 	}
 
 	public void OnPlayerDeath()
