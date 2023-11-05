@@ -103,11 +103,26 @@ public class Player : MonoBehaviour
 			_activeTriple = true;
 			StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
 		}
+		else if (power == 1)
+		{
+			_speed += 5.0f;
+			_rotationSpeed += 30.0f;
+			_boost += 5.0f;
+			StartCoroutine(SpeedPowerdownCoroutine(8.0f));
+		}
 	}
 
 	IEnumerator TripleshotPowerdownCoroutine(float wait)
 	{
 		yield return new WaitForSeconds(wait);
 		_activeTriple = false;
+	}
+
+	IEnumerator SpeedPowerdownCoroutine(float wait)
+	{
+		yield return new WaitForSeconds(wait);
+		_speed -= 5.0f;
+		_rotationSpeed -= 30.0f;
+		_boost -= 5.0f;
 	}
 }

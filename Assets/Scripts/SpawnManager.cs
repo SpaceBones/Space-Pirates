@@ -5,9 +5,10 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 	[SerializeField] private GameObject _enemy;
-	[SerializeField] private GameObject _tripleshot;
-	[SerializeField] private GameObject _newEnemy;
-	[SerializeField] private GameObject _newPower;
+	[SerializeField] private GameObject _tripleshotPower;
+	[SerializeField] private GameObject _speedPower;
+	private GameObject _newEnemy;
+	private GameObject _newPower;
 	[SerializeField] private GameObject _containerEnemy;
 	[SerializeField] private GameObject _containerPower;
 	private bool _stopSpawning = false;
@@ -63,8 +64,17 @@ public class SpawnManager : MonoBehaviour
 		while (_stopSpawning == false)
 		{
 			yield return new WaitForSeconds(wait);
+			int i = Random.Range(0, 2);
 			_spawnPos = new Vector3(Random.Range(-11.0f, 11.0f), 6.5f, 0.0f);
-			_newPower = Instantiate(_tripleshot, _spawnPos, Quaternion.identity);
+			switch (i)
+			{
+				case 0:
+					_newPower = Instantiate(_tripleshotPower, _spawnPos, Quaternion.identity);
+					break;
+				case 1:
+					_newPower = Instantiate(_speedPower, _spawnPos, Quaternion.identity);
+					break;
+			}
 			_newPower.transform.parent = _containerPower.transform;
 		}
 	}

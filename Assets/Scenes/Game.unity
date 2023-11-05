@@ -335,12 +335,12 @@ MonoBehaviour:
   _speed: 8
   _boost: 12
   _rotationSpeed: 250
-  _laser: {fileID: 6218329367411510275, guid: 4075cb2dd847e69469d0fef2d77c5cd0, type: 3}
+  _laser: {fileID: 6218329367411510275, guid: 1fecd60c08514b24b87e2252996820a1, type: 3}
   _cooldown: 0.1
   _lives: 3
   _spawnManager: {fileID: 1155775144}
   _activeTriple: 0
-  _laserTriple: {fileID: 7160807728174314579, guid: 2378dd5182311cf4e9efe60c1dd72adf, type: 3}
+  _laserTriple: {fileID: 7160807728174314579, guid: e2d156cece3e59a47802ef80fc467f04, type: 3}
 --- !u!212 &817587620
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -574,10 +574,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6881364292f574c881997127ddaf41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 4722394102240783498, guid: 86730f8c92fc2324cb15cbbfc7d62479, type: 3}
-  _tripleshot: {fileID: 7712248749915918059, guid: dd2b9c55384b1a34bb83c21dc14cb130, type: 3}
-  _newEnemy: {fileID: 0}
-  _newPower: {fileID: 0}
+  _enemy: {fileID: 4722394102240783498, guid: 080d4f64b90aa5742955dbddeb773bf8, type: 3}
+  _tripleshotPower: {fileID: 7712248749915918059, guid: e46b0cd6de53221478359a27926cbe9a, type: 3}
+  _speedPower: {fileID: 2850747126255214706, guid: e9328ba76844ffb4fa9b4422a6604944, type: 3}
   _containerEnemy: {fileID: 1321573781}
   _containerPower: {fileID: 1497581987}
 --- !u!4 &1155775145
