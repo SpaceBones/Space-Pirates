@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
 	[SerializeField] private GameObject _enemy;
 	[SerializeField] private GameObject _tripleshotPower;
 	[SerializeField] private GameObject _speedPower;
+	[SerializeField] private GameObject _shieldPower;
 	private GameObject _newEnemy;
 	private GameObject _newPower;
 	[SerializeField] private GameObject _containerEnemy;
@@ -14,6 +15,7 @@ public class SpawnManager : MonoBehaviour
 	private bool _stopSpawning = false;
 	private string[] _directions = { "north", "south", "east", "west" };
 	private Vector3 _spawnPos = new Vector3(0.0f, 0.0f, 0.0f);
+	[SerializeField] private GameObject[] _powerups;
 	
 	// Start is called before the first frame update
 	void Start()
@@ -64,17 +66,9 @@ public class SpawnManager : MonoBehaviour
 		while (_stopSpawning == false)
 		{
 			yield return new WaitForSeconds(wait);
-			int i = Random.Range(0, 2);
+			int i = Random.Range(0, 3);
 			_spawnPos = new Vector3(Random.Range(-11.0f, 11.0f), 6.5f, 0.0f);
-			switch (i)
-			{
-				case 0:
-					_newPower = Instantiate(_tripleshotPower, _spawnPos, Quaternion.identity);
-					break;
-				case 1:
-					_newPower = Instantiate(_speedPower, _spawnPos, Quaternion.identity);
-					break;
-			}
+			_newPower = Instantiate(_powerups[i], _spawnPos, Quaternion.identity);
 			_newPower.transform.parent = _containerPower.transform;
 		}
 	}

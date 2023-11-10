@@ -15,8 +15,11 @@ public class Player : MonoBehaviour
 	private float _canFire = 0.1f;
 	[SerializeField] private int _lives = 3;
 	[SerializeField] private SpawnManager _spawnManager;
-	[SerializeField] private bool _activeTriple = false;
+	private bool _activeTriple = false;
 	[SerializeField] private GameObject _laserTriple;
+	private bool _activeShield = false;
+	[SerializeField] private GameObject _shield;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -87,7 +90,12 @@ public class Player : MonoBehaviour
 
 	public void Damage()
 	{
-		_lives--;
+		if (_activeShield == true)
+		{
+			_activeShield = false;
+		}
+		else
+			_lives--;
 		if (_lives < 1)
 		{
 			Destroy(gameObject);
@@ -103,9 +111,14 @@ public class Player : MonoBehaviour
 			_activeTriple = true;
 			StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
 		}
+		else if (power == 2)
+		{
+			_activeShield = true;
+			//when you are next hit, shield is removed instead of health
+		}
 		else if (power == 1)
 		{
-			_speed += 5.0f;
+			_speed += 3.0f;
 			_rotationSpeed += 30.0f;
 			_boost += 5.0f;
 			StartCoroutine(SpeedPowerdownCoroutine(8.0f));
@@ -121,7 +134,7 @@ public class Player : MonoBehaviour
 	IEnumerator SpeedPowerdownCoroutine(float wait)
 	{
 		yield return new WaitForSeconds(wait);
-		_speed -= 5.0f;
+		_speed -= 3.0f;
 		_rotationSpeed -= 30.0f;
 		_boost -= 5.0f;
 	}
