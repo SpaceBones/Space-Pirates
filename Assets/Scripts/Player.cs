@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 	private bool _activeTriple = false;
 	[SerializeField] private GameObject _laserTriple;
 	private bool _activeShield = false;
-	[SerializeField] private GameObject _shield;
+	[SerializeField] private GameObject _shieldVisual;
 
 
 	// Start is called before the first frame update
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 		if (_activeTriple == true)
 		{
 			Instantiate(_laserTriple, transform.position, transform.rotation);
-			_canFire = Time.time + (_cooldown * 2.0f);
+			_canFire = Time.time + (_cooldown * 1.5f);
 		}
 		else
 		{
@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
 		if (_activeShield == true)
 		{
 			_activeShield = false;
+			_shieldVisual.SetActive(false);
 		}
 		else
 			_lives--;
@@ -114,6 +115,7 @@ public class Player : MonoBehaviour
 		else if (power == 2)
 		{
 			_activeShield = true;
+			_shieldVisual.SetActive(true);
 			//when you are next hit, shield is removed instead of health
 		}
 		else if (power == 1)
