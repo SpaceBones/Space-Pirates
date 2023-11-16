@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject _laserTriple;
 	private bool _activeShield = false;
 	[SerializeField] private GameObject _shieldVisual;
+	private int _score;
+	private UIManager _uiManager;
 
 
 	// Start is called before the first frame update
@@ -27,11 +31,15 @@ public class Player : MonoBehaviour
 		//take the current position = new position (x,y,z)
 		transform.position = new Vector3(0, 0, 0);
 		_spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 		if (_spawnManager == null)
 		{
 			Debug.LogError("The Spawn Manager is Null!");
 		}
-
+		else if (_uiManager == null)
+		{
+			Debug.LogError("The UI Manager is Null!");
+		}
 	}
 
 	// Update is called once per frame
@@ -125,6 +133,7 @@ public class Player : MonoBehaviour
 			_boost += 5.0f;
 			StartCoroutine(SpeedPowerdownCoroutine(8.0f));
 		}
+		AddScore(300);
 	}
 
 	IEnumerator TripleshotPowerdownCoroutine(float wait)
@@ -139,5 +148,11 @@ public class Player : MonoBehaviour
 		_speed -= 3.0f;
 		_rotationSpeed -= 30.0f;
 		_boost -= 5.0f;
+	}
+
+	public void AddScore(int points)
+	{
+		_score += points;
+		_uiManager.UpdateScore(_score);
 	}
 }
