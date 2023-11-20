@@ -104,7 +104,10 @@ public class Player : MonoBehaviour
 			_shieldVisual.SetActive(false);
 		}
 		else
+		{
 			_lives--;
+			_uiManager.UpdateLives(_lives);
+		}
 		if (_lives < 1)
 		{
 			Destroy(gameObject);
