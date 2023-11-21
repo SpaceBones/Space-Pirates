@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -113,6 +115,7 @@ public class Player : MonoBehaviour
 			Destroy(gameObject);
 			//tell Spawn Manager to stop spawning
 			_spawnManager.OnPlayerDeath();
+			_uiManager.GameOverSequence();
 		}
 	}
 
