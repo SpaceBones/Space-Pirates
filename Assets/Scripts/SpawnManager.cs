@@ -20,21 +20,20 @@ public class SpawnManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		StartCoroutine(SpawnEnemyCoroutine(Random.Range(1.0f, 6.0f)));
-		StartCoroutine(SpawnPowerupCoroutine(Random.Range(10.0f, 15.0f)));
+		
 	}
 
-	// Update is called once per frame
-	void Update()
+	public void StartSpawning()
 	{
-
+		StartCoroutine(SpawnEnemyCoroutine());
+		StartCoroutine(SpawnPowerupCoroutine());
 	}
 
-	IEnumerator SpawnEnemyCoroutine(float wait)
+	IEnumerator SpawnEnemyCoroutine()
 	{
 		while (_stopSpawning == false)
 		{
-			yield return new WaitForSeconds(wait);
+			yield return new WaitForSeconds(Random.Range(1.0f, 6.0f));
 			int x = Random.Range(0, 4);
 			string result = _directions[x];
 				switch (result)
@@ -61,11 +60,11 @@ public class SpawnManager : MonoBehaviour
 
 	}
 
-	IEnumerator SpawnPowerupCoroutine(float wait)
+	IEnumerator SpawnPowerupCoroutine()
 	{
 		while (_stopSpawning == false)
 		{
-			yield return new WaitForSeconds(wait);
+			yield return new WaitForSeconds(Random.Range(10.0f, 15.0f));
 			int i = Random.Range(0, 3);
 			_spawnPos = new Vector3(Random.Range(-11.0f, 11.0f), 6.5f, 0.0f);
 			_newPower = Instantiate(_powerups[i], _spawnPos, Quaternion.identity);
