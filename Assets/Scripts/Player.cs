@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 	private UIManager _uiManager;
 	[SerializeField] private GameObject _damage_l;
 	[SerializeField] private GameObject _damage_r;
+	[SerializeField] private AudioSource _laserSound;
 
 	// Start is called before the first frame update
 	void Start()
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
 		transform.position = new Vector3(0, 0, 0);
 		_spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+		_laserSound = GetComponent<AudioSource>();
 		if (_spawnManager == null)
 		{
 			Debug.LogError("The Spawn Manager is Null!");
@@ -42,6 +44,10 @@ public class Player : MonoBehaviour
 		else if (_uiManager == null)
 		{
 			Debug.LogError("The UI Manager is Null!");
+		}
+		else if (_laserSound == null)
+		{
+			Debug.LogError("The Laser Sound is Null!");
 		}
 	}
 
@@ -86,7 +92,6 @@ public class Player : MonoBehaviour
 
 	void FireLaser()
 	{
-		//If you press a button, spawn laser
 		if (_activeTriple == true)
 		{
 			Instantiate(_laserTriple, transform.position, transform.rotation);
@@ -97,6 +102,7 @@ public class Player : MonoBehaviour
 			Instantiate(_laser, transform.position, transform.rotation);
 			_canFire = Time.time + _cooldown;
 		}
+		_laserSound.Play(0);
 	}
 
 	public void Damage()
