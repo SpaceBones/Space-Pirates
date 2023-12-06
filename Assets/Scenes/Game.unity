@@ -983,8 +983,8 @@ GameObject:
   - component: {fileID: 817587621}
   - component: {fileID: 817587620}
   - component: {fileID: 817587619}
-  - component: {fileID: 817587622}
   - component: {fileID: 817587623}
+  - component: {fileID: 817587622}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player

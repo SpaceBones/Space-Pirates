@@ -9,16 +9,20 @@ public class Enemy : MonoBehaviour
 	private float _xBarrier = 11.28f;
 	[SerializeField] private Player _player;
 	private Animator _animator;
+	[SerializeField] private AudioSource _audSource;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		_player = GameObject.Find("Player").GetComponent<Player>();
 		_animator = GetComponent<Animator>();
+		_audSource = GetComponent<AudioSource>();
 		if (_player == null)
 			Debug.LogError("Custom Error: The Player is NULL!");
 		else if (_animator == null)
 			Debug.LogError("Custom Error: The Animator is NULL!");
+		else if (_audSource == null)
+			Debug.LogError("Custom Error: The Audio Source is NULL!");
 	}
 
 	// Update is called once per frame
@@ -65,6 +69,7 @@ public class Enemy : MonoBehaviour
 		GetComponent<Collider2D>().enabled = false;
 		_speed = 0.0f;
 		_animator.SetTrigger("On_Enemy_Death");
+		_audSource.Play();
 		Destroy(gameObject, 2);
 	}
 }
