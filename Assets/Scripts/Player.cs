@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour
 {
@@ -176,5 +175,17 @@ public class Player : MonoBehaviour
 	{
 		_score += points;
 		_uiManager.UpdateScore(_score);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Laser")
+		{
+			if (other.gameObject.GetComponent<Laser>()._isEnemyLaser == true)
+			{
+				Destroy(other.transform.parent.gameObject);
+				Damage();
+			}
+		}
 	}
 }

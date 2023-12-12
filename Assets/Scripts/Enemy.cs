@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private Player _player;
 	private Animator _animator;
 	[SerializeField] private AudioSource _audSource;
+	[SerializeField] private GameObject _laser;
+	[SerializeField] private GameObject _laserSpawn;
+	private float _fireRate = 3.0f;
+	private float _canFire = -1.0f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -23,6 +27,7 @@ public class Enemy : MonoBehaviour
 			Debug.LogError("Custom Error: The Animator is NULL!");
 		else if (_audSource == null)
 			Debug.LogError("Custom Error: The Audio Source is NULL!");
+		_canFire = Time.time + 0.5f;
 	}
 
 	// Update is called once per frame
@@ -30,6 +35,19 @@ public class Enemy : MonoBehaviour
 	{
 		//move in the chosen direction at 4 m/s
 		Movement();
+
+		if (Time.time > _canFire)
+		{
+			_fireRate = Random.Range(1.0f, 3.0f);
+			_canFire = Time.time + _fireRate;
+			GameObject enemyLaser = Instantiate(_laser, _laserSpawn.transform.position, transform.rotation);
+			Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
+			for (int i = 0; i < lasers.Length; i++)
+			{
+				lasers[i].AssignEnemyLaser();
+			}
+
+		}
 		// **EXPERIMENTAL CODE**
 		// if you touch the barrier, reappear on another random point on the barrier
 		// if (Mathf.Abs(transform.position.y) >= yBarrier || Mathf.Abs(transform.position.x) >= xBarrier)
@@ -63,9 +81,13 @@ public class Enemy : MonoBehaviour
 		}
 		else if (other.tag == "Laser")
 		{
-			_player.AddScore(100);
-			Destroy(other.gameObject);
+			if (other.gameObject.GetComponent<Laser>()._isEnemyLaser == false)
+			{
+				_player.AddScore(100);
+				Destroy(other.gameObject);
+			}
 		}
+		_canFire = Time.time + 5.0f;
 		GetComponent<Collider2D>().enabled = false;
 		_speed = 0.0f;
 		_animator.SetTrigger("On_Enemy_Death");

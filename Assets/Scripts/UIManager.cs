@@ -49,9 +49,9 @@ public class UIManager : MonoBehaviour
 		while (true)
 		{
 			_gameOver.enabled = true;
-			yield return new WaitForSeconds(2);
+			yield return new WaitForSeconds(.75f);
 			_gameOver.enabled = false;
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(.75f);
 		}
 	}
 }

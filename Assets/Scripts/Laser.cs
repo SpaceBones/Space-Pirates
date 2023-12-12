@@ -7,13 +7,15 @@ public class Laser : MonoBehaviour
 	[SerializeField] private float _speed = 15.0f;
 	private float _yBarrier = 6.55f;
 	private float _xBarrier = 11.28f;
+	public bool _isEnemyLaser = false;
 
 	// Update is called once per frame
 	void Update()
 	{
-		//translate laser up by a speed
-		transform.Translate(Vector3.up * _speed * Time.deltaTime);
-		//delete the laser if it goes full screen
+		if (_isEnemyLaser == false)
+			transform.Translate(Vector3.up * _speed * Time.deltaTime);
+		else if (_isEnemyLaser == true)
+			transform.Translate(Vector3.down * _speed * Time.deltaTime);
 		if (transform.position.y >= _yBarrier || transform.position.y <= (_yBarrier * -1.0f))
 		{
 			if (transform.parent != null)
@@ -26,5 +28,10 @@ public class Laser : MonoBehaviour
 				Destroy(transform.parent.gameObject);
 			Destroy(gameObject);
 		}
+	}
+
+	public void AssignEnemyLaser()
+	{
+		_isEnemyLaser = true;
 	}
 }
