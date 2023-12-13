@@ -23,9 +23,9 @@ public class Enemy : MonoBehaviour
 		_audSource = GetComponent<AudioSource>();
 		if (_player == null)
 			Debug.LogError("Custom Error: The Player is NULL!");
-		else if (_animator == null)
+		if (_animator == null)
 			Debug.LogError("Custom Error: The Animator is NULL!");
-		else if (_audSource == null)
+		if (_audSource == null)
 			Debug.LogError("Custom Error: The Audio Source is NULL!");
 		_canFire = Time.time + 0.5f;
 	}
@@ -78,15 +78,21 @@ public class Enemy : MonoBehaviour
 			Player player = other.transform.GetComponent<Player>();
 			if (player != null)
 				player.Damage();
+			DeathSequence();
 		}
 		else if (other.tag == "Laser")
 		{
-			if (other.gameObject.GetComponent<Laser>()._isEnemyLaser == false)
+			if (other.gameObject.GetComponent<Laser>().isEnemyLaser == false)
 			{
 				_player.AddScore(100);
 				Destroy(other.gameObject);
+				DeathSequence();
 			}
 		}
+	}
+
+	private void DeathSequence()
+	{
 		_canFire = Time.time + 5.0f;
 		GetComponent<Collider2D>().enabled = false;
 		_speed = 0.0f;

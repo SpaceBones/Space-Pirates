@@ -40,11 +40,11 @@ public class Player : MonoBehaviour
 		{
 			Debug.LogError("The Spawn Manager is Null!");
 		}
-		else if (_uiManager == null)
+		if (_uiManager == null)
 		{
 			Debug.LogError("The UI Manager is Null!");
 		}
-		else if (_laserSound == null)
+		if (_laserSound == null)
 		{
 			Debug.LogError("The Laser Sound is Null!");
 		}
@@ -136,23 +136,22 @@ public class Player : MonoBehaviour
 
 	public void Powerup(int power)
 	{
-		if (power == 3)
+		switch(power)
 		{
-			_activeTriple = true;
-			StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
-		}
-		else if (power == 2)
-		{
-			_activeShield = true;
-			_shieldVisual.SetActive(true);
-			//when you are next hit, shield is removed instead of health
-		}
-		else if (power == 1)
-		{
-			_speed += 3.0f;
-			_rotationSpeed += 30.0f;
-			_boost += 5.0f;
-			StartCoroutine(SpeedPowerdownCoroutine(8.0f));
+			case 1:
+				_speed += 3.0f;
+				_rotationSpeed += 30.0f;
+				_boost += 5.0f;
+				StartCoroutine(SpeedPowerdownCoroutine(8.0f));
+				break;
+			case 2:
+				_activeShield = true;
+				_shieldVisual.SetActive(true);
+				break;
+			case 3:
+				_activeTriple = true;
+				StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
+				break;
 		}
 		AddScore(300);
 	}
@@ -181,7 +180,7 @@ public class Player : MonoBehaviour
 	{
 		if (other.tag == "Laser")
 		{
-			if (other.gameObject.GetComponent<Laser>()._isEnemyLaser == true)
+			if (other.gameObject.GetComponent<Laser>().isEnemyLaser == true)
 			{
 				Destroy(other.transform.parent.gameObject);
 				Damage();
