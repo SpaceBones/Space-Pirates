@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private Image _livesImg;
 	[SerializeField] private TMP_Text _gameOver;
 	[SerializeField] private TMP_Text _restart;
+	[SerializeField] private TMP_Text _ammoText;
 	private GameManager _gameManager;
 	// Start is called before the first frame update
 	void Start()
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
 		if (_gameManager == null)
 			Debug.LogError("Game Manager is NULL!");
 		_scoreText.SetText("Score: 0");
+		_ammoText.SetText("Ammo: 15");
 	}
 
 	// Update is called once per frame
@@ -53,5 +55,10 @@ public class UIManager : MonoBehaviour
 			_gameOver.enabled = false;
 			yield return new WaitForSeconds(.75f);
 		}
+	}
+
+	public void UpdateAmmo(int ammo)
+	{
+		_ammoText.SetText("Ammo: " + ammo);
 	}
 }

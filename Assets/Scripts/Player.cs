@@ -8,7 +8,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Player : MonoBehaviour
 {
 	[SerializeField] private float _speed = 10.0f;
-	[SerializeField] private float _boost = 12.0f;
+	[SerializeField] private float _boostMultiplier = 1.5f;
 	//It's high because it's basically "how many degrees per second am I rotating?"
 	[SerializeField] private float _rotationSpeed = 250.0f;
 	private float _yBarrier = 6.55f;
@@ -22,11 +22,14 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameObject _laserTriple;
 	private bool _activeShield = false;
 	[SerializeField] private GameObject _shieldVisual;
+	[SerializeField] private SpriteRenderer _shieldSpriteRenderer;
 	private int _score;
 	private UIManager _uiManager;
 	[SerializeField] private GameObject _damage_l;
 	[SerializeField] private GameObject _damage_r;
 	[SerializeField] private AudioSource _laserSound;
+	private int _shieldHP = 0;
+	private int _ammo = 15;
 
 	// Start is called before the first frame update
 	void Start()
@@ -55,7 +58,7 @@ public class Player : MonoBehaviour
 	{
 		CalculateMovement();
 		//AlternateMovement();
-		if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > _canFire)
+		if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > _canFire && _ammo > 0)
 			FireLaser();
 	}
 
@@ -67,7 +70,7 @@ public class Player : MonoBehaviour
 
 		//The Top is forward and backward movement in addition to boost, while the Bottom is left and right rotation
 		if (Input.GetKey(KeyCode.Mouse1) == true || Input.GetKey(KeyCode.LeftShift) == true)
-			transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _boost);
+			transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed * _boostMultiplier);
 		else
 			transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed);
 		transform.Rotate(new Vector3(0, 0, hInput * -1) * Time.deltaTime * _rotationSpeed, Space.Self);
@@ -91,6 +94,8 @@ public class Player : MonoBehaviour
 
 	void FireLaser()
 	{
+		_ammo--;
+		_uiManager.UpdateAmmo(_ammo);
 		if (_activeTriple == true)
 		{
 			Instantiate(_laserTriple, transform.position, transform.rotation);
@@ -108,8 +113,8 @@ public class Player : MonoBehaviour
 	{
 		if (_activeShield == true)
 		{
-			_activeShield = false;
-			_shieldVisual.SetActive(false);
+			ShieldDamage();
+			AddScore(100);
 		}
 		else
 		{
@@ -141,16 +146,19 @@ public class Player : MonoBehaviour
 			case 1:
 				_speed += 3.0f;
 				_rotationSpeed += 30.0f;
-				_boost += 5.0f;
 				StartCoroutine(SpeedPowerdownCoroutine(8.0f));
 				break;
 			case 2:
 				_activeShield = true;
+				_shieldHP = 3;
+				_shieldSpriteRenderer.color = Color.white;
 				_shieldVisual.SetActive(true);
 				break;
 			case 3:
 				_activeTriple = true;
 				StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
+				break;
+			default:
 				break;
 		}
 		AddScore(300);
@@ -167,7 +175,6 @@ public class Player : MonoBehaviour
 		yield return new WaitForSeconds(wait);
 		_speed -= 3.0f;
 		_rotationSpeed -= 30.0f;
-		_boost -= 5.0f;
 	}
 
 	public void AddScore(int points)
@@ -185,6 +192,27 @@ public class Player : MonoBehaviour
 				Destroy(other.transform.parent.gameObject);
 				Damage();
 			}
+		}
+	}
+
+	private void ShieldDamage()
+	{
+		_shieldHP--;
+		switch (_shieldHP)
+		{
+			case 2:
+				_shieldSpriteRenderer.color = Color.yellow;
+				break;
+			case 1:
+				_shieldSpriteRenderer.color = Color.red;
+				break;
+			case 0:
+				_activeShield = false;
+				_shieldVisual.SetActive(false);
+				_shieldSpriteRenderer.color = Color.white;
+				break;
+			default:
+				break;
 		}
 	}
 }
