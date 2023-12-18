@@ -1683,12 +1683,14 @@ MonoBehaviour:
   _tripleshotPower: {fileID: 7712248749915918059, guid: e46b0cd6de53221478359a27926cbe9a, type: 3}
   _speedPower: {fileID: 2850747126255214706, guid: e9328ba76844ffb4fa9b4422a6604944, type: 3}
   _shieldPower: {fileID: 4340103966604287785, guid: 88df3814ed00c6047ad8d877878e9144, type: 3}
+  _ammoPower: {fileID: 7278651231639312594, guid: 701708bbc2ed1b84ebf5dcf23c41617c, type: 3}
   _containerEnemy: {fileID: 1321573781}
   _containerPower: {fileID: 1497581987}
   _powerups:
   - {fileID: 7712248749915918059, guid: e46b0cd6de53221478359a27926cbe9a, type: 3}
   - {fileID: 2850747126255214706, guid: e9328ba76844ffb4fa9b4422a6604944, type: 3}
   - {fileID: 4340103966604287785, guid: 88df3814ed00c6047ad8d877878e9144, type: 3}
+  - {fileID: 7278651231639312594, guid: 701708bbc2ed1b84ebf5dcf23c41617c, type: 3}
 --- !u!4 &1155775145
 Transform:
   m_ObjectHideFlags: 0

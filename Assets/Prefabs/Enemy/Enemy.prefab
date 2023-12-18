@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _player: {fileID: 0}
-  _audSource: {fileID: 0}
+  _audSource: {fileID: -2532446767620132473}
   _laser: {fileID: 7717028611893885586, guid: 05c433ef0b0c0cf4b80c7b82aa8787d9, type: 3}
   _laserSpawn: {fileID: 2380449775420503794}
 --- !u!212 &2908154067786788164

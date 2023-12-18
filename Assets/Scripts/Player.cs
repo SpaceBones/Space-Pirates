@@ -158,6 +158,10 @@ public class Player : MonoBehaviour
 				_activeTriple = true;
 				StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
 				break;
+			case 4:
+				_ammo += 10;
+				_uiManager.UpdateAmmo(_ammo);
+				break;
 			default:
 				break;
 		}
