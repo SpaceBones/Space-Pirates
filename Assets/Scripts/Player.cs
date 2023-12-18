@@ -133,10 +133,22 @@ public class Player : MonoBehaviour
 
 	private void ShowDamage()
 	{
-		if (_lives == 2)
-			_damage_l.SetActive(true);
-		else if (_lives == 1)
-			_damage_r.SetActive(true);
+		switch (_lives)
+		{
+			case 3:
+				_damage_l.SetActive(false);
+				_damage_r.SetActive(false);
+				break;
+			case 2:
+				_damage_l.SetActive(true);
+				_damage_r.SetActive(false);
+				break;
+			case 1:
+				_damage_r.SetActive(true);
+				break;
+			default:
+				break;
+		}
 	}
 
 	public void Powerup(int power)
@@ -159,6 +171,14 @@ public class Player : MonoBehaviour
 				StartCoroutine(TripleshotPowerdownCoroutine(8.0f));
 				break;
 			case 4:
+				if (_lives < 3)
+				{
+					_lives++;
+					ShowDamage();
+					_uiManager.UpdateLives(_lives);
+				}
+				break;
+			case 5:
 				_ammo += 10;
 				_uiManager.UpdateAmmo(_ammo);
 				break;

@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
 	[SerializeField] private GameObject _tripleshotPower;
 	[SerializeField] private GameObject _speedPower;
 	[SerializeField] private GameObject _shieldPower;
+	[SerializeField] private GameObject _healthPower;
 	[SerializeField] private GameObject _ammoPower;
 	private GameObject _newEnemy;
 	private GameObject _newPower;
@@ -67,7 +68,7 @@ public class SpawnManager : MonoBehaviour
 		while (_stopSpawning == false)
 		{
 			yield return new WaitForSeconds(Random.Range(10.0f, 15.0f));
-			int i = Random.Range(0, 3);
+			int i = Random.Range(3, 4);
 			_spawnPos = new Vector3(Random.Range(-10.0f, 10.0f), 6.5f, 0.0f);
 			_newPower = Instantiate(_powerups[i], _spawnPos, Quaternion.identity);
 			_newPower.transform.parent = _containerPower.transform;
@@ -80,7 +81,7 @@ public class SpawnManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
 			_spawnPos = new Vector3(Random.Range(-10.0f, 10.0f), 6.5f, 0.0f);
-			_newPower = Instantiate(_powerups[3], _spawnPos, Quaternion.identity);
+			_newPower = Instantiate(_powerups[4], _spawnPos, Quaternion.identity);
 			_newPower.transform.parent = _containerPower.transform;
 		}
 	}
