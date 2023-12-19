@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 		_gameManager.GameOver();
 	}
 
+	//A classic retro GAME OVER Blink
 	IEnumerator GameOverCoroutine()
 	{
 		while (true)

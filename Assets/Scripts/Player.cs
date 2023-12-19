@@ -36,8 +36,7 @@ public class Player : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		//take the current position = new position (x,y,z)
-		transform.position = new Vector3(0, 0, 0);
+		transform.position = new Vector3(0, -1.0f, 0);
 		_spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
 		_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 		_laserSound = GetComponent<AudioSource>();
@@ -94,11 +93,13 @@ public class Player : MonoBehaviour
 	//     transform.rotation = Quaternion.AngleAxis(angle, new Vector3(0,0,1));
 	// }
 
+	//When called, fire a laser based on current Power Up
+	//Priority: Bomb, Tripleshot, Basic
 	void FireLaser()
 	{
 		_ammo--;
 		_uiManager.UpdateAmmo(_ammo);
-		if (_activeTriple == true)
+		if (_activeTriple == true && _activeBomb == false)
 		{
 			Instantiate(_laserTriple, transform.position, transform.rotation);
 			_canFire = Time.time + (_cooldown + 0.5f);
@@ -138,6 +139,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	//Function designed to handle taking and healing damage (from the Health Power Up)
 	private void ShowDamage()
 	{
 		switch (_lives)
@@ -158,6 +160,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	//1 = Speed, 2 = Shield, 3 = Tripleshot, 4 = HP, 5 = Ammo, 6 = Bomb
 	public void Powerup(int power)
 	{
 		switch(power)
@@ -236,6 +239,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	//Designed to render the shield in different colors based on damage taken, resets if shield power up is collected again
 	private void ShieldDamage()
 	{
 		_shieldHP--;

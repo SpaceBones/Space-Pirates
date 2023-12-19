@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 	private bool _isGameOver = false;
 
+	//A Simple Restart Button and Escape Button
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.R) && _isGameOver == true)

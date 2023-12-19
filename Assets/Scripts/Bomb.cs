@@ -8,7 +8,8 @@ public class Bomb : MonoBehaviour
 	[SerializeField] private GameObject _bombRing;
 	private float _yBarrier = 6.55f;
 	private float _xBarrier = 11.28f;
-	// Start is called before the first frame update
+
+	//Gradually slow down before detonating.
 	void Update()
 	{
 		transform.Translate(Vector3.up * _speed * Time.deltaTime);
@@ -19,6 +20,7 @@ public class Bomb : MonoBehaviour
 			Detonate();
 		}
 
+		//if you hit the barrier, reappear on the other side
 		if (transform.position.y >= _yBarrier || transform.position.y <= (_yBarrier * -1.0f))
 			transform.position = new Vector3(transform.position.x, transform.position.y * -1.0f, transform.position.z);
 		if (transform.position.x >= _xBarrier || transform.position.x <= (_xBarrier * -1.0f))

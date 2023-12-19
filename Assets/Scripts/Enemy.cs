@@ -33,9 +33,9 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//move in the chosen direction at 4 m/s
 		Movement();
 
+		//Randomly Fire your Laser every 5-7 seconds.
 		if (Time.time > _canFire)
 		{
 			_fireRate = Random.Range(5.0f, 7.0f);

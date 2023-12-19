@@ -20,12 +20,6 @@ public class SpawnManager : MonoBehaviour
 	private Vector3 _spawnPos = new Vector3(0.0f, 0.0f, 0.0f);
 	[SerializeField] private GameObject[] _powerups;
 	
-	// Start is called before the first frame update
-	void Start()
-	{
-		
-	}
-
 	public void StartSpawning()
 	{
 		StartCoroutine(SpawnEnemyCoroutine());
@@ -41,6 +35,7 @@ public class SpawnManager : MonoBehaviour
 			yield return new WaitForSeconds(Random.Range(1.0f, 6.0f));
 			int x = Random.Range(0, 4);
 			string result = _directions[x];
+			//Spawns Enemies in a random cardinal direction.
 				switch (result)
 				{
 					case "north":
