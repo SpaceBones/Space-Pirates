@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
 
 		if (Time.time > _canFire)
 		{
-			_fireRate = Random.Range(1.0f, 3.0f);
+			_fireRate = Random.Range(5.0f, 7.0f);
 			_canFire = Time.time + _fireRate;
 			GameObject enemyLaser = Instantiate(_laser, _laserSpawn.transform.position, transform.rotation);
 			Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
@@ -88,6 +88,11 @@ public class Enemy : MonoBehaviour
 				Destroy(other.gameObject);
 				DeathSequence();
 			}
+		}
+		else if (other.tag == "Bomb")
+		{
+			_player.AddScore(150);
+			DeathSequence();
 		}
 	}
 

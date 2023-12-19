@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
 	[SerializeField] private GameObject _shieldPower;
 	[SerializeField] private GameObject _healthPower;
 	[SerializeField] private GameObject _ammoPower;
+	[SerializeField] private GameObject _bombPower;
 	private GameObject _newEnemy;
 	private GameObject _newPower;
 	[SerializeField] private GameObject _containerEnemy;
@@ -30,6 +31,7 @@ public class SpawnManager : MonoBehaviour
 		StartCoroutine(SpawnEnemyCoroutine());
 		StartCoroutine(SpawnPowerupCoroutine());
 		StartCoroutine(SpawnAmmoCoroutine()); //There is no way I'm giving the player a 25% chance every 10-15 Seconds to get ammo, I'm giving it it's own coroutine
+		StartCoroutine(SpawnBombCoroutine());
 	}
 
 	IEnumerator SpawnEnemyCoroutine()
@@ -68,7 +70,7 @@ public class SpawnManager : MonoBehaviour
 		while (_stopSpawning == false)
 		{
 			yield return new WaitForSeconds(Random.Range(10.0f, 15.0f));
-			int i = Random.Range(3, 4);
+			int i = Random.Range(0, 4);
 			_spawnPos = new Vector3(Random.Range(-10.0f, 10.0f), 6.5f, 0.0f);
 			_newPower = Instantiate(_powerups[i], _spawnPos, Quaternion.identity);
 			_newPower.transform.parent = _containerPower.transform;
@@ -82,6 +84,17 @@ public class SpawnManager : MonoBehaviour
 			yield return new WaitForSeconds(Random.Range(5.0f, 10.0f));
 			_spawnPos = new Vector3(Random.Range(-10.0f, 10.0f), 6.5f, 0.0f);
 			_newPower = Instantiate(_powerups[4], _spawnPos, Quaternion.identity);
+			_newPower.transform.parent = _containerPower.transform;
+		}
+	}
+
+	IEnumerator SpawnBombCoroutine()
+	{
+		while (_stopSpawning == false)
+		{
+			yield return new WaitForSeconds(Random.Range(20.0f, 30.0f));
+			_spawnPos = new Vector3(Random.Range(-10.0f, 10.0f), 6.5f, 0.0f);
+			_newPower = Instantiate(_powerups[5], _spawnPos, Quaternion.identity);
 			_newPower.transform.parent = _containerPower.transform;
 		}
 	}

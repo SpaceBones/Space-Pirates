@@ -19,7 +19,9 @@ public class Player : MonoBehaviour
 	[SerializeField] private int _lives = 3;
 	[SerializeField] private SpawnManager _spawnManager;
 	private bool _activeTriple = false;
+	private bool _activeBomb = false;
 	[SerializeField] private GameObject _laserTriple;
+	[SerializeField] private GameObject _laserBomb;
 	private bool _activeShield = false;
 	[SerializeField] private GameObject _shieldVisual;
 	[SerializeField] private SpriteRenderer _shieldSpriteRenderer;
@@ -99,7 +101,12 @@ public class Player : MonoBehaviour
 		if (_activeTriple == true)
 		{
 			Instantiate(_laserTriple, transform.position, transform.rotation);
-			_canFire = Time.time + (_cooldown * 1.5f);
+			_canFire = Time.time + (_cooldown + 0.5f);
+		}
+		else if (_activeBomb == true)
+		{
+			Instantiate(_laserBomb, transform.position, transform.rotation);
+			_canFire = Time.time + (_cooldown + 1.5f);
 		}
 		else
 		{
@@ -182,6 +189,10 @@ public class Player : MonoBehaviour
 				_ammo += 10;
 				_uiManager.UpdateAmmo(_ammo);
 				break;
+			case 6:
+				_activeBomb = true;
+				StartCoroutine(BombPowerdownCoroutine(5.0f));
+				break;
 			default:
 				break;
 		}
@@ -199,6 +210,12 @@ public class Player : MonoBehaviour
 		yield return new WaitForSeconds(wait);
 		_speed -= 3.0f;
 		_rotationSpeed -= 30.0f;
+	}
+
+	IEnumerator BombPowerdownCoroutine(float wait)
+	{
+		yield return new WaitForSeconds(wait);
+		_activeBomb = false;
 	}
 
 	public void AddScore(int points)

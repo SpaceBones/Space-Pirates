@@ -1012,6 +1012,7 @@ MonoBehaviour:
   _lives: 3
   _spawnManager: {fileID: 1155775144}
   _laserTriple: {fileID: 7160807728174314579, guid: e2d156cece3e59a47802ef80fc467f04, type: 3}
+  _laserBomb: {fileID: 1648930096829822766, guid: 58d8d4a2551357c45a96e577829083f0, type: 3}
   _shieldVisual: {fileID: 676259055}
   _shieldSpriteRenderer: {fileID: 676259056}
   _damage_l: {fileID: 1608561264}
@@ -1685,6 +1686,7 @@ MonoBehaviour:
   _shieldPower: {fileID: 4340103966604287785, guid: 88df3814ed00c6047ad8d877878e9144, type: 3}
   _healthPower: {fileID: 6794208659302177729, guid: 58e8db66368c4734d98b1f902855119a, type: 3}
   _ammoPower: {fileID: 7278651231639312594, guid: 701708bbc2ed1b84ebf5dcf23c41617c, type: 3}
+  _bombPower: {fileID: 8286740366771485390, guid: 12761d4cb86007a4791345c642dc315f, type: 3}
   _containerEnemy: {fileID: 1321573781}
   _containerPower: {fileID: 1497581987}
   _powerups:
@@ -1693,6 +1695,7 @@ MonoBehaviour:
   - {fileID: 4340103966604287785, guid: 88df3814ed00c6047ad8d877878e9144, type: 3}
   - {fileID: 6794208659302177729, guid: 58e8db66368c4734d98b1f902855119a, type: 3}
   - {fileID: 7278651231639312594, guid: 701708bbc2ed1b84ebf5dcf23c41617c, type: 3}
+  - {fileID: 8286740366771485390, guid: 12761d4cb86007a4791345c642dc315f, type: 3}
 --- !u!4 &1155775145
 Transform:
   m_ObjectHideFlags: 0
