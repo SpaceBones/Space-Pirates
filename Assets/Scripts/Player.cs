@@ -8,7 +8,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Player : MonoBehaviour
 {
 	[SerializeField] private float _speed = 10.0f;
-	[SerializeField] private float _boostMultiplier = 1.5f;
+	[SerializeField] private float _boostMultiplier = 1.7f;
 	//It's high because it's basically "how many degrees per second am I rotating?"
 	[SerializeField] private float _rotationSpeed = 250.0f;
 	private float _yBarrier = 6.55f;
@@ -32,6 +32,9 @@ public class Player : MonoBehaviour
 	[SerializeField] private AudioSource _laserSound;
 	private int _shieldHP = 0;
 	private int _ammo = 15;
+	private float _thrusters = 1.0f;
+	private float _thrustCooldown = 2.0f;
+	private float _canThrust = 0.1f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -70,11 +73,23 @@ public class Player : MonoBehaviour
 		float vInput = Input.GetAxis("Vertical");
 
 		//The Top is forward and backward movement in addition to boost, while the Bottom is left and right rotation
-		if (Input.GetKey(KeyCode.Mouse1) == true || Input.GetKey(KeyCode.LeftShift) == true)
+		if ((Input.GetKey(KeyCode.Mouse1) == true || Input.GetKey(KeyCode.LeftShift) == true) && Time.time > _canThrust && _thrusters > 0)
+		{
 			transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed * _boostMultiplier);
-		else
+			_thrusters -= 0.001f;
+		}
+		else if ((Input.GetKey(KeyCode.Mouse1) == true || Input.GetKey(KeyCode.LeftShift) == true) && Time.time < _canThrust)
 			transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed);
+		else
+		{
+			transform.Translate(new Vector3(0, vInput, 0) * Time.deltaTime * _speed);
+			if (_thrusters < 1 && Time.time > _canThrust)
+				_thrusters += 0.002f;
+		}
 		transform.Rotate(new Vector3(0, 0, hInput * -1) * Time.deltaTime * _rotationSpeed, Space.Self);
+		if (_thrusters <= 0)
+			ThrusterCooldown();
+		_uiManager.UpdateThrust(_thrusters);
 
 		//If the current transform meets or exceeds the barrier, spawn them on the opposite side
 		if (transform.position.y >= _yBarrier || transform.position.y <= (_yBarrier * -1.0f))
@@ -259,5 +274,11 @@ public class Player : MonoBehaviour
 			default:
 				break;
 		}
+	}
+
+	private void ThrusterCooldown()
+	{
+		_thrusters = 0.01f;
+		_canThrust = Time.time + _thrustCooldown;
 	}
 }

@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private TMP_Text _gameOver;
 	[SerializeField] private TMP_Text _restart;
 	[SerializeField] private TMP_Text _ammoText;
+	[SerializeField] private Slider _thrustSlider;
 	private GameManager _gameManager;
 	// Start is called before the first frame update
 	void Start()
@@ -21,12 +22,6 @@ public class UIManager : MonoBehaviour
 			Debug.LogError("Game Manager is NULL!");
 		_scoreText.SetText("Score: 0");
 		_ammoText.SetText("Ammo: 15");
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
 	}
 
 	public void UpdateScore(int score)
@@ -44,6 +39,16 @@ public class UIManager : MonoBehaviour
 		StartCoroutine(GameOverCoroutine());
 		_restart.enabled = true;
 		_gameManager.GameOver();
+	}
+
+	public void UpdateThrust(float value)
+	{
+		if (value < 0)
+			_thrustSlider.value = 0;
+		else if (value > 1)
+			_thrustSlider.value = 1;
+		else
+			_thrustSlider.value = value;
 	}
 
 	//A classic retro GAME OVER Blink
