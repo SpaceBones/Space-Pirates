@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 	private float _thrusters = 1.0f;
 	private float _thrustCooldown = 2.0f;
 	private float _canThrust = 0.1f;
+	[SerializeField] private Animator _animator;
 
 	// Start is called before the first frame update
 	void Start()
@@ -144,6 +145,7 @@ public class Player : MonoBehaviour
 			_lives--;
 			ShowDamage();
 			_uiManager.UpdateLives(_lives);
+			_animator.SetTrigger("Player Damaged");
 		}
 		if (_lives < 1)
 		{
